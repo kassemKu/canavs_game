@@ -1,0 +1,17 @@
+CHECKLIST
+-- init project files
+-- HTML structure
+-- js file included
+-- js file checker
+-- create a player
+-- shoot projectiles
+-- create enemies
+-- detect collection on enemy / projectiles hit
+-- remove off screen projectiles
+-- colorize
+-- shrink enemies on hit
+-- create particle explosion on hit
+-- add score
+-- add game over UI
+-- add restart button
+-- add start game button
