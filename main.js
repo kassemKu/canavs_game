@@ -14,9 +14,9 @@ canvas.width = innerWidth;
 // 6- create canvas context api, read more about canvas context api
 const ctx = canvas.getContext("2d");
 // context can be 2d or 3d we need 2d in our project
-console.log(ctx);
+// console.log(ctx);
 // 7- create a class to draw a circle
-const Player = {
+class Player {
   // ask about player property
   // size
   // color
@@ -28,5 +28,29 @@ const Player = {
     this.y = y;
     this.radius = radius;
     this.color = color;
-  },
-};
+  }
+
+  // 11- draw the player function
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    // 12- colorize the player
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
+
+// 9- create player clone
+// const player = new Player(100, 100, 30, "blue");
+// 10- check player in console
+// console.log(player);
+// call draw function
+// player.draw();
+
+// 13 - create x var and assign it to middle screen in x
+const x = canvas.width / 2;
+// 14 - create y var and assign it to middle screen in y
+const y = canvas.height / 2;
+// 15 - centered the player
+const player = new Player(x, y, 30, "blue");
+player.draw();
