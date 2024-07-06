@@ -1,9 +1,9 @@
 CHECKLIST
--- init project files
--- HTML structure
--- js file included
--- js file checker
--- create a player
+-- init project files [DONE]
+-- HTML structure [DONE]
+-- js file included [DONE]
+-- js file checker [DONE]
+-- create a player [DONE]
 -- shoot projectiles
 -- create enemies
 -- detect collection on enemy / projectiles hit
