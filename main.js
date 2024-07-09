@@ -85,7 +85,21 @@ class Enemy {}
 function animate() {
   requestAnimationFrame(animate);
   // console.log(111);
+  // 30 - explain var scop, move projectile variable to outside addEventListener
+  projectile.draw();
+  projectile.update();
 }
+
+const projectile = new Projectile(
+  canvas.width / 2,
+  canvas.height / 2,
+  10,
+  "red",
+  {
+    x: 1,
+    y: 1,
+  }
+);
 
 // 21 - add click event listener
 addEventListener("click", (event) => {
@@ -94,14 +108,38 @@ addEventListener("click", (event) => {
   // console.log(event);
   // const x = event.clientX;
   // const y = event.clientY;
-  const projectile = new Projectile(
-    canvas.width / 2,
-    canvas.height / 2,
-    10,
-    "red",
-    null
-  );
-  projectile.draw();
+  // const projectile = new Projectile(
+  //   event.clientX,
+  //   event.clientY,
+  //   10,
+  //   "red",
+  //   null
+  // );
+  // const projectile = new Projectile(
+  //   canvas.width / 2,
+  //   canvas.height / 2,
+  //   10,
+  //   "red",
+  //   null
+  // );
+  // 28 - update the velocity
+  // const projectile = new Projectile(
+  //   canvas.width / 2,
+  //   canvas.height / 2,
+  //   10,
+  //   "red",
+  //   {
+  //     x: 1,
+  //     y: 1,
+  //   }
+  // );
+  // 29 - move draw, update function to inside animate function
+  // 23 - show the angle between player and where we click, from center to projectile position draw the triangle
+  // 24 - calc the triangle angle by using atan2 method
+  // 25 - calc the projectile velocity by using the angle
+  // 26 - update the projectile position
+  // 27 - get the x by using sig() function, get projectile y by using cos() function
+  // like so x = sig(angle), y = cos(angle)
 });
 
 animate();
