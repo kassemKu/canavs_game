@@ -53,7 +53,6 @@ const x = canvas.width / 2;
 const y = canvas.height / 2;
 // 15 - centered the player
 const player = new Player(x, y, 30, "blue");
-player.draw();
 
 // 16 - create Projectile class
 class Projectile {
@@ -74,6 +73,8 @@ class Projectile {
     ctx.fill();
   }
   update() {
+    // 35 - draw projectiles before update
+    this.draw();
     this.x = this.x + this.velocity.x;
     this.y = this.y + this.velocity.y;
   }
@@ -81,25 +82,38 @@ class Projectile {
 // 17 - create Enemy class
 class Enemy {}
 
+// 31 - comment out the project clone
+// const projectile = new Projectile(
+//   canvas.width / 2,
+//   canvas.height / 2,
+//   10,
+//   "red",
+//   {
+//     x: 1,
+//     y: 1,
+//   }
+// );
+
+// 33 - create projectiles array to push in every project clone when user click on screen
+const projectiles = [];
+
 // 23 - create animate function
 function animate() {
   requestAnimationFrame(animate);
   // console.log(111);
   // 30 - explain var scop, move projectile variable to outside addEventListener
-  projectile.draw();
-  projectile.update();
+  // 32 - delete the tow functions
+  // projectile.draw();
+  // projectile.update();
+  // 34 - loop through projectiles array
+  // 40 - clear the canvas every click event
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // 41 - move player draw function right after clearRect
+  player.draw();
+  projectiles.forEach((projectile) => {
+    projectile.update();
+  });
 }
-
-const projectile = new Projectile(
-  canvas.width / 2,
-  canvas.height / 2,
-  10,
-  "red",
-  {
-    x: 1,
-    y: 1,
-  }
-);
 
 // 21 - add click event listener
 addEventListener("click", (event) => {
@@ -140,6 +154,43 @@ addEventListener("click", (event) => {
   // 26 - update the projectile position
   // 27 - get the x by using sig() function, get projectile y by using cos() function
   // like so x = sig(angle), y = cos(angle)
+  // 36 - create new Projectile clone on every click
+  // const projectile = new Projectile(
+  //   canvas.width / 2,
+  //   canvas.height / 2,
+  //   10,
+  //   "red",
+  //   {
+  //     x: 1,
+  //     y: 1,
+  //   }
+  // );
+  // const projectile2 = new Projectile(
+  //   canvas.width / 2,
+  //   canvas.height / 2,
+  //   10,
+  //   "green",
+  //   {
+  //     x: -1,
+  //     y: -1,
+  //   }
+  // );
+  // 37 - push the new clone into projectiles array
+  // create angle variable using atan2 math function
+  // 38 - const angle = Math.atan2(y, x)
+  const angle = Math.atan2(
+    event.clientY - canvas.height / 2,
+    event.clientX - canvas.width / 2
+  );
+  // 39 - crate velocity variable
+  const velocity = {
+    x: Math.cos(angle), // -1/1
+    y: Math.sin(angle), // -1/1
+  };
+  // console.log(angle);
+  projectiles.push(
+    new Projectile(canvas.width / 2, canvas.height / 2, 5, "red", velocity)
+  );
 });
 
 animate();

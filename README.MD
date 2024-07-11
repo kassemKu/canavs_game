@@ -4,7 +4,7 @@ CHECKLIST
 -- js file included [DONE]
 -- js file checker [DONE]
 -- create a player [DONE]
--- shoot projectiles
+-- shoot projectiles [DONE]
 -- create enemies
 -- detect collection on enemy / projectiles hit
 -- remove off screen projectiles
