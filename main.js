@@ -80,7 +80,71 @@ class Projectile {
   }
 }
 // 17 - create Enemy class
-class Enemy {}
+class Enemy {
+  // 42 - start work with enemy class
+  constructor(x, y, radius, color, velocity) {
+    // 19 - projectile properties
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = color;
+    this.velocity = velocity;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+  update() {
+    this.draw();
+    this.x = this.x + this.velocity.x;
+    this.y = this.y + this.velocity.y;
+  }
+}
+
+const enemies = [];
+
+// 43 - create enemy generator function
+function enemyGenerator() {
+  setInterval(() => {
+    // 44 - create enemy
+    // 47 - random x, y
+    // const x = Math.random() * canvas.width;
+    // const y = Math.random() * canvas.height;
+    // 48 - get enemy from left right side from out out of screen
+    // const x =  0.5 ? 0 - radius;
+    // const y =  0 - radius;
+    // 49
+    // const x = Math.random() > 0.5 ? 0 - radius : radius + canvas.width;
+    // const y = Math.random() > 0.5 ? 0 - radius : radius + canvas.height;
+    // 50 - random x, y
+    // 51 - random radius between 0/30
+    // const radius = Math.random() * 30;
+    // 52 - avoid the 4 number and under 4
+    const radius = Math.random() * (30 - 4) + 4;
+    let x;
+    let y;
+    if (Math.random() < 0.5) {
+      x = Math.random() > 0.5 ? 0 - radius : radius + canvas.width;
+      y = Math.random() * canvas.height;
+    } else {
+      x = Math.random() * canvas.width;
+      y = Math.random() > 0.5 ? 0 - radius : radius + canvas.height;
+    }
+    const color = "green";
+    // 45 - update the velocity
+    // const angle = Math.atan2(y - canvas.height / 2, x - canvas.width / 2);
+    // 46 - update the direction
+    const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
+    // 39 - crate velocity variable
+    const velocity = {
+      x: Math.cos(angle), // -1/1
+      y: Math.sin(angle), // -1/1
+    };
+    enemies.push(new Enemy(x, y, radius, color, velocity));
+  }, 1000);
+}
 
 // 31 - comment out the project clone
 // const projectile = new Projectile(
@@ -112,6 +176,9 @@ function animate() {
   player.draw();
   projectiles.forEach((projectile) => {
     projectile.update();
+  });
+  enemies.forEach((enemy) => {
+    enemy.update();
   });
 }
 
@@ -194,3 +261,4 @@ addEventListener("click", (event) => {
 });
 
 animate();
+enemyGenerator();
