@@ -107,43 +107,43 @@ const enemies = [];
 
 // 43 - create enemy generator function
 function enemyGenerator() {
-  // setInterval(() => {
-  // 44 - create enemy
-  // 47 - random x, y
-  // const x = Math.random() * canvas.width;
-  // const y = Math.random() * canvas.height;
-  // 48 - get enemy from left right side from out out of screen
-  // const x =  0.5 ? 0 - radius;
-  // const y =  0 - radius;
-  // 49
-  // const x = Math.random() > 0.5 ? 0 - radius : radius + canvas.width;
-  // const y = Math.random() > 0.5 ? 0 - radius : radius + canvas.height;
-  // 50 - random x, y
-  // 51 - random radius between 0/30
-  // const radius = Math.random() * 30;
-  // 52 - avoid the 4 number and under 4
-  const radius = Math.random() * (30 - 4) + 4;
-  let x;
-  let y;
-  if (Math.random() < 0.5) {
-    x = Math.random() > 0.5 ? 0 - radius : radius + canvas.width;
-    y = Math.random() * canvas.height;
-  } else {
-    x = Math.random() * canvas.width;
-    y = Math.random() > 0.5 ? 0 - radius : radius + canvas.height;
-  }
-  const color = "green";
-  // 45 - update the velocity
-  // const angle = Math.atan2(y - canvas.height / 2, x - canvas.width / 2);
-  // 46 - update the direction
-  const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
-  // 39 - crate velocity variable
-  const velocity = {
-    x: Math.cos(angle), // -1/1
-    y: Math.sin(angle), // -1/1
-  };
-  enemies.push(new Enemy(x, y, radius, color, velocity));
-  // }, 1000);
+  setInterval(() => {
+    // 44 - create enemy
+    // 47 - random x, y
+    // const x = Math.random() * canvas.width;
+    // const y = Math.random() * canvas.height;
+    // 48 - get enemy from left right side from out out of screen
+    // const x =  0 - radius;
+    // const y =  0 - radius;
+    // 49
+    // const x = Math.random() > 0.5 ? 0 - radius : radius + canvas.width;
+    // const y = Math.random() > 0.5 ? 0 - radius : radius + canvas.height;
+    // 50 - random x, y
+    // 51 - random radius between 0/30
+    // const radius = Math.random() * 30;
+    // 52 - avoid the 4 number and under 4
+    const radius = Math.random() * (30 - 4) + 4;
+    let x;
+    let y;
+    if (Math.random() < 0.5) {
+      x = Math.random() > 0.5 ? 0 - radius : radius + canvas.width;
+      y = Math.random() * canvas.height;
+    } else {
+      x = Math.random() * canvas.width;
+      y = Math.random() > 0.5 ? 0 - radius : radius + canvas.height;
+    }
+    const color = "green";
+    // 45 - update the velocity
+    // const angle = Math.atan2(y - canvas.height / 2, x - canvas.width / 2);
+    // 46 - update the direction
+    const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
+    // 39 - crate velocity variable
+    const velocity = {
+      x: Math.cos(angle), // -1/1
+      y: Math.sin(angle), // -1/1
+    };
+    enemies.push(new Enemy(x, y, radius, color, velocity));
+  }, 1000);
 }
 
 // 31 - comment out the project clone
@@ -186,9 +186,12 @@ function animate() {
       // console.log(dist);
       // 54 - objects touch
       if (dist - enemy.radius - projectile.radius < 1) {
-        console.log("hit");
-        enemies.splice(index, 1);
-        projectiles.splice(projectileIndex, 1);
+        // 55 - remove the flash effect, when projectile touch enemy, all enemies flashed in the screen, because we removed from array
+        // using settimeout to delete this flash effect
+        setTimeout(() => {
+          enemies.splice(index, 1);
+          projectiles.splice(projectileIndex, 1);
+        }, 0);
       }
     });
   });
