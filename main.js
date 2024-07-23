@@ -160,10 +160,13 @@ function enemyGenerator() {
 
 // 33 - create projectiles array to push in every project clone when user click on screen
 const projectiles = [];
+// 59 - create animationId var, init with undefined
+// then in animate function reassign to requestAnimationFrame(animate);
+let animateId;
 
 // 23 - create animate function
 function animate() {
-  requestAnimationFrame(animate);
+  animateId = requestAnimationFrame(animate);
   // console.log(111);
   // 30 - explain var scop, move projectile variable to outside addEventListener
   // 32 - delete the tow functions
@@ -180,6 +183,17 @@ function animate() {
   enemies.forEach((enemy, index) => {
     enemy.update();
 
+    // 56 - work with lose case, if enemy touch the player, so we work on plyer and each enemy
+    // Note we use the same variable name (dist), here we can talk about variable scope and chine
+    const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+    // 57 - end the game
+    if (dist - enemy.radius - player.radius < 1) {
+      // 58 - end the game, but how it is
+      // on order to end the game we should cancel the requestAnimationFrame function
+      // to do so look at step 59/60
+      // 60 - here how we cancel the animation
+      cancelAnimationFrame(animateId);
+    }
     // 53 - matching projectile and enemy case
     projectiles.forEach((projectile, projectileIndex) => {
       const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
