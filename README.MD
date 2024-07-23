@@ -6,7 +6,7 @@ CHECKLIST
 -- create a player [DONE]
 -- shoot projectiles [DONE]
 -- create enemies [DONE]
--- detect collection on enemy / projectiles hit
+-- detect collection on enemy / projectiles hit [DONE]
 -- remove off screen projectiles
 -- colorize
 -- shrink enemies on hit
