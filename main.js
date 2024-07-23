@@ -177,8 +177,17 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // 41 - move player draw function right after clearRect
   player.draw();
-  projectiles.forEach((projectile) => {
+  projectiles.forEach((projectile, index) => {
     projectile.update();
+    // 61 - remove projectiles out of screen, / 4 directions
+    if (
+      projectile.x - projectile.radius < 0 ||
+      projectile.x + projectile.radius > canvas.width ||
+      projectile.y - projectile.radius < 0 ||
+      projectile.y + projectile.radius > canvas.height
+    ) {
+      projectiles.splice(index, 1);
+    }
   });
   enemies.forEach((enemy, index) => {
     enemy.update();
@@ -213,6 +222,8 @@ function animate() {
 
 // 21 - add click event listener
 addEventListener("click", (event) => {
+  // 62 - check if projectiles removed out of screen
+  console.log(projectiles);
   // 22 - create projectile clones
   // check x, y
   // console.log(event);
