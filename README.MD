@@ -7,8 +7,8 @@ CHECKLIST
 -- shoot projectiles [DONE]
 -- create enemies [DONE]
 -- detect collection on enemy / projectiles hit [DONE]
--- remove off screen projectiles
--- colorize
+-- remove off screen projectiles [DONE]
+-- colorize [DONE]
 -- shrink enemies on hit
 -- create particle explosion on hit
 -- add score

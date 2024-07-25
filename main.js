@@ -52,7 +52,7 @@ const x = canvas.width / 2;
 // 14 - create y var and assign it to middle screen in y
 const y = canvas.height / 2;
 // 15 - centered the player
-const player = new Player(x, y, 30, "blue");
+const player = new Player(x, y, 10, "white"); // 66 update player color and size
 
 // 16 - create Projectile class
 class Projectile {
@@ -132,7 +132,10 @@ function enemyGenerator() {
       x = Math.random() * canvas.width;
       y = Math.random() > 0.5 ? 0 - radius : radius + canvas.height;
     }
-    const color = "green";
+    // 69 - random color
+    // const color = "hsl(0, 50%, 50%)";
+    // const color = "hsl(Math.random() * 360, 50%, 50%)"; // white color, use back quit to get dynamic value
+    const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
     // 45 - update the velocity
     // const angle = Math.atan2(y - canvas.height / 2, x - canvas.width / 2);
     // 46 - update the direction
@@ -174,17 +177,23 @@ function animate() {
   // projectile.update();
   // 34 - loop through projectiles array
   // 40 - clear the canvas every click event
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // 64 - fillStyle to get our black bg color
+  // ctx.fillStyle = "black";
+  // 65 - update fillStyle color to rgba to get the fade effect
+  ctx.fillStyle = "rgba(0,0,0,0.1)";
+  // 63 - colorize the game, replace clearRect with fillRect
+  // ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   // 41 - move player draw function right after clearRect
   player.draw();
   projectiles.forEach((projectile, index) => {
     projectile.update();
     // 61 - remove projectiles out of screen, / 4 directions
     if (
-      projectile.x - projectile.radius < 0 ||
-      projectile.x + projectile.radius > canvas.width ||
-      projectile.y - projectile.radius < 0 ||
-      projectile.y + projectile.radius > canvas.height
+      projectile.x + projectile.radius < 0 ||
+      projectile.x - projectile.radius > canvas.width ||
+      projectile.y + projectile.radius < 0 ||
+      projectile.y - projectile.radius > canvas.height
     ) {
       projectiles.splice(index, 1);
     }
@@ -291,12 +300,14 @@ addEventListener("click", (event) => {
   );
   // 39 - crate velocity variable
   const velocity = {
-    x: Math.cos(angle), // -1/1
-    y: Math.sin(angle), // -1/1
+    // 68 - increase the projectile speed
+    x: Math.cos(angle) * 5, // -1/1
+    y: Math.sin(angle) * 5, // -1/1
   };
   // console.log(angle);
+  // 67 - colored the projectile to white
   projectiles.push(
-    new Projectile(canvas.width / 2, canvas.height / 2, 5, "red", velocity)
+    new Projectile(canvas.width / 2, canvas.height / 2, 5, "white", velocity)
   );
 });
 
