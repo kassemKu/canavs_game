@@ -305,6 +305,7 @@ addEventListener("click", (event) => {
     y: Math.sin(angle) * 5, // -1/1
   };
   // console.log(angle);
+  // console.log(projectiles);
   // 67 - colored the projectile to white
   projectiles.push(
     new Projectile(canvas.width / 2, canvas.height / 2, 5, "white", velocity)
