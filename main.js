@@ -1,3 +1,5 @@
+// 75 - test gsap
+// console.log(gsap);
 // 1- select canvas element
 const canvas = document.querySelector("#canvas");
 // 2- check selector with console
@@ -220,10 +222,30 @@ function animate() {
       if (dist - enemy.radius - projectile.radius < 1) {
         // 55 - remove the flash effect, when projectile touch enemy, all enemies flashed in the screen, because we removed from array
         // using settimeout to delete this flash effect
-        setTimeout(() => {
-          enemies.splice(index, 1);
-          projectiles.splice(projectileIndex, 1);
-        }, 0);
+
+        // 70 start shrank enemies
+        // if (enemy.radius> 10) {
+        // if (enemy.radius - 10 > 10) {
+        if (enemy.radius - 10 > 5) {
+          // 76 - small to 5
+          // 71 - resize enemy if match
+          // enemy.radius -= 10;
+          // 75 - transition the enemy resize effect using gsap lib
+          gsap.to(enemy, {
+            radius: enemy.radius - 10,
+          });
+          // 72 - we need to remove the projectile, if not the projectile matching the enemy again, we do not want this
+          // projectiles.splice(projectileIndex, 1);
+          // 73 - wrap removing inside setTimeout function
+          setTimeout(() => {
+            projectiles.splice(projectileIndex, 1);
+          }, 0);
+        } else {
+          setTimeout(() => {
+            enemies.splice(index, 1);
+            projectiles.splice(projectileIndex, 1);
+          }, 0);
+        }
       }
     });
   });

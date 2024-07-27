@@ -9,7 +9,7 @@ CHECKLIST
 -- detect collection on enemy / projectiles hit [DONE]
 -- remove off screen projectiles [DONE]
 -- colorize [DONE]
--- shrink enemies on hit
+-- shrink enemies on hit [DONE]
 -- create particle explosion on hit
 -- add score
 -- add game over UI
