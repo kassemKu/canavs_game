@@ -104,6 +104,44 @@ class Enemy {
     this.y = this.y + this.velocity.y;
   }
 }
+// 77 - create particle class
+// 92 - create friction to slow down the particle speed
+const friction = 0.99;
+class Particle {
+  constructor(x, y, radius, color, velocity) {
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = color;
+    this.velocity = velocity;
+    // 81 - add alpha property to get fade out effect
+    this.alpha = 1;
+  }
+  draw() {
+    // 82 - save the current value
+    ctx.save();
+    // 84 - set global alpha
+    // ctx.globalAlpha = 0.1;
+    // 86 - assign to alpha
+    ctx.globalAlpha = this.alpha;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    // 83- refetch the old stat, (the code above)
+    ctx.restore();
+  }
+  update() {
+    this.draw();
+    // 93 - slow down the speed
+    this.velocity.x *= friction;
+    this.velocity.y *= friction;
+    this.x = this.x + this.velocity.x;
+    this.y = this.y + this.velocity.y;
+    // 85 - subtract the alpha
+    this.alpha -= 0.01;
+  }
+}
 
 const enemies = [];
 
@@ -165,6 +203,8 @@ function enemyGenerator() {
 
 // 33 - create projectiles array to push in every project clone when user click on screen
 const projectiles = [];
+// 78 - create particles array
+const particles = [];
 // 59 - create animationId var, init with undefined
 // then in animate function reassign to requestAnimationFrame(animate);
 let animateId;
@@ -200,6 +240,16 @@ function animate() {
       projectiles.splice(index, 1);
     }
   });
+  // 80 - animate the particles
+  particles.forEach((particle) => {
+    // 87 - remove the particle if its alpha is less then or equal to zero
+    if (particle.alpha <= 0) {
+      // 88 - note we use indexOf to get the index of particle, we can use indexParticle the second parameter in forEach loop also
+      particles.splice(particles.indexOf(particle), 1);
+    } else {
+      particle.update();
+    }
+  });
   enemies.forEach((enemy, index) => {
     enemy.update();
 
@@ -223,6 +273,28 @@ function animate() {
         // 55 - remove the flash effect, when projectile touch enemy, all enemies flashed in the screen, because we removed from array
         // using settimeout to delete this flash effect
 
+        // 79 - create particles
+        // for (let i = 0; i < 8; i++) {
+        // 90 - create particles as enemy size
+        for (let i = 0; i < enemy.radius * 2; i++) {
+          particles.push(
+            // new Particle(projectile.x, projectile.y, 3, enemy.color, {
+            // 89 - random the radius
+            new Particle(
+              projectile.x,
+              projectile.y,
+              Math.random() * 2,
+              enemy.color,
+              {
+                // x: Math.random() - 0.5, // to get negative value
+                // y: Math.random() - 0.5, // to get negative value
+                // 91 - increase the velocity
+                x: (Math.random() - 0.5) * (Math.random() * 6),
+                y: (Math.random() - 0.5) * (Math.random() * 6),
+              }
+            )
+          );
+        }
         // 70 start shrank enemies
         // if (enemy.radius> 10) {
         // if (enemy.radius - 10 > 10) {
@@ -254,7 +326,7 @@ function animate() {
 // 21 - add click event listener
 addEventListener("click", (event) => {
   // 62 - check if projectiles removed out of screen
-  console.log(projectiles);
+  // console.log(projectiles);
   // 22 - create projectile clones
   // check x, y
   // console.log(event);

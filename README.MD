@@ -10,7 +10,7 @@ CHECKLIST
 -- remove off screen projectiles [DONE]
 -- colorize [DONE]
 -- shrink enemies on hit [DONE]
--- create particle explosion on hit
+-- create particle explosion on hit [DONE]
 -- add score
 -- add game over UI
 -- add restart button
