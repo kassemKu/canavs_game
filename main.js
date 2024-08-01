@@ -2,6 +2,8 @@
 // console.log(gsap);
 // 1- select canvas element
 const canvas = document.querySelector("#canvas");
+// 97 - get the score span element
+const scoreEl = document.querySelector("#scoreEl");
 // 2- check selector with console
 // console.log(canvas);
 // 3- explain innerWidth / innerHeight
@@ -208,7 +210,8 @@ const particles = [];
 // 59 - create animationId var, init with undefined
 // then in animate function reassign to requestAnimationFrame(animate);
 let animateId;
-
+// 98 - create score var
+let score = 0;
 // 23 - create animate function
 function animate() {
   animateId = requestAnimationFrame(animate);
@@ -273,6 +276,10 @@ function animate() {
         // 55 - remove the flash effect, when projectile touch enemy, all enemies flashed in the screen, because we removed from array
         // using settimeout to delete this flash effect
 
+        // 99 - increase the score var
+        // score += 100;
+        // 100 - print the score to spanEl element
+        // scoreEl.innerHTML = score;
         // 79 - create particles
         // for (let i = 0; i < 8; i++) {
         // 90 - create particles as enemy size
@@ -303,6 +310,11 @@ function animate() {
           // 71 - resize enemy if match
           // enemy.radius -= 10;
           // 75 - transition the enemy resize effect using gsap lib
+          // 101 logic for shrink and kill the enemy
+          // 102 - increase score by 100 if shrink
+          score += 100;
+          // 103 - print the score to spanEl element
+          scoreEl.innerHTML = score;
           gsap.to(enemy, {
             radius: enemy.radius - 10,
           });
@@ -313,6 +325,10 @@ function animate() {
             projectiles.splice(projectileIndex, 1);
           }, 0);
         } else {
+          // 104 - increase score by 250 if kill
+          score += 250;
+          // 105 - print the score to spanEl element
+          scoreEl.innerHTML = score;
           setTimeout(() => {
             enemies.splice(index, 1);
             projectiles.splice(projectileIndex, 1);

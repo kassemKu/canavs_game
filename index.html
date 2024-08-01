@@ -12,9 +12,25 @@
       canvas {
         max-width: 100%;
       }
+      /* 95 add score styling */
+      .score {
+        position: fixed;
+        color: white;
+        left: 1rem;
+        top: 1rem;
+        /* font-family: "Courier New", Courier, monospace; */
+        /* font-size: 1.3rem; */
+        font-weight: 500;
+        user-select: none;
+      }
     </style>
   </head>
   <body>
+    <!-- 94 add score -->
+    <div class="score">
+      <span>score: </span>
+      <span id="scoreEl">0</span>
+    </div>
     <canvas id="canvas"></canvas>
 
     <!-- 74 include gsap lib -->
@@ -24,6 +40,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <!-- 96 add tailwind lib -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="./main.js"></script>
   </body>
 </html>
