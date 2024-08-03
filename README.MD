@@ -12,6 +12,6 @@ CHECKLIST
 -- shrink enemies on hit [DONE]
 -- create particle explosion on hit [DONE]
 -- add score [DONE]
--- add game over UI
--- add restart button
--- add start game button
+-- add game over UI [DONE]
+-- add restart button [DON]
+-- restart game [DONE]

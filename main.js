@@ -4,6 +4,12 @@
 const canvas = document.querySelector("#canvas");
 // 97 - get the score span element
 const scoreEl = document.querySelector("#scoreEl");
+// 107 start game button
+const startGameBtn = document.querySelector("#startGameBtn");
+// 108 - get the modal element
+const modalEl = document.querySelector("#modalEl");
+// 113 - get big score span
+const bigScore = document.querySelector("#bigScore");
 // 2- check selector with console
 // console.log(canvas);
 // 3- explain innerWidth / innerHeight
@@ -56,7 +62,7 @@ const x = canvas.width / 2;
 // 14 - create y var and assign it to middle screen in y
 const y = canvas.height / 2;
 // 15 - centered the player
-const player = new Player(x, y, 10, "white"); // 66 update player color and size
+let player = new Player(x, y, 10, "white"); // 66 update player color and size
 
 // 16 - create Projectile class
 class Projectile {
@@ -145,7 +151,7 @@ class Particle {
   }
 }
 
-const enemies = [];
+let enemies = [];
 
 // 43 - create enemy generator function
 function enemyGenerator() {
@@ -204,15 +210,25 @@ function enemyGenerator() {
 // );
 
 // 33 - create projectiles array to push in every project clone when user click on screen
-const projectiles = [];
+let projectiles = [];
 // 78 - create particles array
-const particles = [];
+let particles = [];
 // 59 - create animationId var, init with undefined
 // then in animate function reassign to requestAnimationFrame(animate);
 let animateId;
 // 98 - create score var
 let score = 0;
 // 23 - create animate function
+// 114 - init game, reset values to start game again
+function init() {
+  player = new Player(x, y, 10, "white");
+  projectiles = [];
+  enemies = [];
+  particles = [];
+  score = 0;
+  scoreEl.innerHTML = score;
+  bigScore.innerHTML = score;
+}
 function animate() {
   animateId = requestAnimationFrame(animate);
   // console.log(111);
@@ -266,6 +282,10 @@ function animate() {
       // to do so look at step 59/60
       // 60 - here how we cancel the animation
       cancelAnimationFrame(animateId);
+      // 112 - restart the game
+      modalEl.style.display = "flex";
+      // 113 - inner final the score
+      bigScore.innerHTML = score;
     }
     // 53 - matching projectile and enemy case
     projectiles.forEach((projectile, projectileIndex) => {
@@ -422,5 +442,12 @@ addEventListener("click", (event) => {
   );
 });
 
-animate();
-enemyGenerator();
+startGameBtn.addEventListener("click", () => {
+  // 115 - re init the game
+  init();
+  // 108 - move starter game function into callback function
+  animate();
+  enemyGenerator();
+  // 110 - remove the modal from screen after start game
+  modalEl.style.display = "none";
+});
